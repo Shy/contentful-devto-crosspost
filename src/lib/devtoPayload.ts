@@ -5,6 +5,9 @@ const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_PUBLISH_HOUR_EASTERN = 10;
 const DEFAULT_PUBLISH_MINUTE_EASTERN = 0;
 const DEFAULT_PUBLISH_TIME_ZONE = 'America/New_York';
+const DEV_COVER_IMAGE_WIDTH = '1000';
+const DEV_COVER_IMAGE_HEIGHT = '420';
+const CONTENTFUL_IMAGE_HOSTS = new Set(['images.ctfassets.net', 'images.contentful.com']);
 const CONTENTFUL_DATE_PATTERN =
   /^(\d{4})-(\d{2})-(\d{2})(?:[T\s]+(\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(?:\s*(Z|UTC|[+-]\d{2}:?\d{2}))?)?$/i;
 
@@ -16,7 +19,7 @@ export function buildDevtoArticlePayload(input: ContentfulPostInput, config: App
 
   const canonicalUrl = joinUrl(config.siteBlogBaseUrl, input.slug);
   const defaultDate = addDaysAsDevtoDateTime(input.publishDate, config.publishDelayDays);
-  const coverImage = normalizeOptionalUrl(input.coverImagePrimaryUrl) ?? normalizeOptionalUrl(input.coverImageFallbackUrl);
+  const coverImage = normalizeCoverImageUrl(input.coverImagePrimaryUrl) ?? normalizeCoverImageUrl(input.coverImageFallbackUrl);
   const tags = normalizeTags({
     forcedFirstTag: config.forcedFirstTag,
     contentfulTags: input.tags ?? [],
@@ -133,6 +136,23 @@ function addDaysAsDevtoDateTime(value: string, days: number): string {
       timeZone: DEFAULT_PUBLISH_TIME_ZONE,
     }),
   );
+}
+
+function normalizeCoverImageUrl(value: string | undefined): string | undefined {
+  const normalized = normalizeOptionalUrl(value);
+  if (!normalized) return undefined;
+
+  try {
+    const url = new URL(normalized);
+    if (!CONTENTFUL_IMAGE_HOSTS.has(url.hostname)) return normalized;
+
+    url.searchParams.set('w', DEV_COVER_IMAGE_WIDTH);
+    url.searchParams.set('h', DEV_COVER_IMAGE_HEIGHT);
+    url.searchParams.set('fit', 'fill');
+    return url.toString();
+  } catch {
+    return normalized;
+  }
 }
 
 function normalizeOptionalUrl(value: string | undefined): string | undefined {

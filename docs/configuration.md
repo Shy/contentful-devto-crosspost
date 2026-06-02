@@ -90,6 +90,18 @@ https://example.com/blog/my-post
 
 The app also validates that the generated canonical URL stays under the configured base URL. It uses DEV's `canonical_url` field for attribution and does not add an "originally published" line to the article body.
 
+## Cover Image Behavior
+
+DEV's `cover_image`/`main_image` field accepts a URL. DEV recommends `1000 x 420`.
+
+When the mapped cover image is hosted by Contentful Images (`images.ctfassets.net` or `images.contentful.com`), the app rewrites the URL through Contentful's image API:
+
+```text
+?w=1000&h=420&fit=fill
+```
+
+This gives DEV a correctly sized cover image without creating a separate asset. Non-Contentful image URLs are passed through unchanged.
+
 ## DEV Organization Behavior
 
 For personal-account drafts:
