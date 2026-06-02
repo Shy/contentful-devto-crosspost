@@ -1,0 +1,57 @@
+{
+  "actions": [
+    {
+      "id": "createDevtoDraft",
+      "name": "Create DEV.to draft",
+      "description": "Verifies a per-user DEV API key, checks duplicates, and creates a draft DEV article.",
+      "type": "function-invocation",
+      "functionId": "createDevtoDraft",
+      "category": "Custom",
+      "parameters": [
+        {
+          "id": "mode",
+          "name": "Mode",
+          "description": "Whether to verify a DEV API key or create a draft.",
+          "type": "Symbol",
+          "required": true
+        },
+        {
+          "id": "devtoApiKey",
+          "name": "DEV API key",
+          "description": "Per-user DEV API key used only for this action call.",
+          "type": "Symbol",
+          "required": true
+        },
+        {
+          "id": "entryId",
+          "name": "Contentful entry ID",
+          "description": "Entry ID used by the function to fetch and generate the DEV draft payload.",
+          "type": "Symbol",
+          "required": false
+        },
+        {
+          "id": "locale",
+          "name": "Contentful locale",
+          "description": "Locale code used to read localized entry fields.",
+          "type": "Symbol",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "id": "createDevtoDraft",
+      "name": "Create DEV.to draft",
+      "description": "Verifies a per-user DEV API key, checks duplicates, and creates a draft DEV article.",
+      "path": "functions/createDevtoDraft.js",
+      "entryFile": "functions/createDevtoDraft.ts",
+      "accepts": [
+        "appaction.call"
+      ],
+      "allowNetworks": [
+        "dev.to"
+      ]
+    }
+  ]
+}
