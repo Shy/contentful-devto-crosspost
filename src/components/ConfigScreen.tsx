@@ -35,7 +35,7 @@ export default function ConfigScreen() {
           EditorInterface: {
             [config.contentTypeId]: {
               sidebar: {
-                position: 0,
+                position: config.sidebarPosition,
               },
             },
           },
@@ -88,7 +88,12 @@ export default function ConfigScreen() {
         <ConfigInput
           label="Publish delay days"
           value={String(config.publishDelayDays)}
-          onChange={(value) => update('publishDelayDays', Number(value) || DEFAULT_APP_CONFIG.publishDelayDays)}
+          onChange={(value) => update('publishDelayDays', numberOrDefault(value, DEFAULT_APP_CONFIG.publishDelayDays))}
+        />
+        <ConfigInput
+          label="Sidebar position"
+          value={String(config.sidebarPosition)}
+          onChange={(value) => update('sidebarPosition', numberOrDefault(value, DEFAULT_APP_CONFIG.sidebarPosition))}
         />
         <ConfigInput label="App Action ID" value={config.appActionId} onChange={(value) => update('appActionId', value)} />
       </section>
@@ -180,7 +185,15 @@ function validateConfigShape(config: AppConfig): string[] {
   if (config.publishDelayDays < 0 || !Number.isFinite(config.publishDelayDays)) {
     errors.push('Publish delay days must be zero or greater.');
   }
+  if (config.sidebarPosition < 0 || !Number.isFinite(config.sidebarPosition)) {
+    errors.push('Sidebar position must be zero or greater.');
+  }
   return errors;
+}
+
+function numberOrDefault(value: string, fallback: number): number {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : fallback;
 }
 
 function isHttpsUrl(value: string): boolean {

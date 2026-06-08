@@ -19,6 +19,7 @@ export const DEFAULT_APP_CONFIG: AppConfig = {
   devtoOrgId: '3146',
   forcedFirstTag: 'temporal',
   publishDelayDays: 7,
+  sidebarPosition: 2,
   appActionId: 'createDevtoDraft',
   fieldMapping: DEFAULT_FIELD_MAPPING,
 };
@@ -45,6 +46,7 @@ function pickStringNumberConfig(input: Record<string, unknown>): Partial<AppConf
     devtoOrgId: stringOr(input.devtoOrgId, DEFAULT_APP_CONFIG.devtoOrgId),
     forcedFirstTag: stringOr(input.forcedFirstTag, DEFAULT_APP_CONFIG.forcedFirstTag),
     publishDelayDays: numberOr(input.publishDelayDays, DEFAULT_APP_CONFIG.publishDelayDays),
+    sidebarPosition: numberOr(input.sidebarPosition, DEFAULT_APP_CONFIG.sidebarPosition),
     appActionId: stringOr(input.appActionId, DEFAULT_APP_CONFIG.appActionId),
   };
 }
@@ -73,4 +75,3 @@ function numberOr(value: unknown, fallback: number): number {
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
-

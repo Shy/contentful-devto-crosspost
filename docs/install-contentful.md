@@ -92,6 +92,7 @@ Install the app into the test environment. In the app configuration screen, set:
 - DEV organization username and ID, or blank values for personal drafts
 - forced first tag, if desired
 - publish delay days
+- sidebar position
 - field mappings
 
 See [configuration.md](configuration.md) for detailed field mapping rules.
@@ -106,6 +107,7 @@ Example generic configuration:
   "devtoOrgId": "",
   "forcedFirstTag": "example",
   "publishDelayDays": 7,
+  "sidebarPosition": 2,
   "appActionId": "createDevtoDraft",
   "fieldMapping": {
     "titleField": "headline",

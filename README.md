@@ -109,6 +109,7 @@ These defaults match Temporal's blog content model. Change them during Contentfu
   "devtoOrgId": "3146",
   "forcedFirstTag": "temporal",
   "publishDelayDays": 7,
+  "sidebarPosition": 2,
   "appActionId": "createDevtoDraft",
   "fieldMapping": {
     "titleField": "title",

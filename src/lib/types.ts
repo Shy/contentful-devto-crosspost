@@ -17,6 +17,7 @@ export type AppConfig = {
   devtoOrgId: string;
   forcedFirstTag: string;
   publishDelayDays: number;
+  sidebarPosition: number;
   appActionId: string;
   fieldMapping: FieldMapping;
 };

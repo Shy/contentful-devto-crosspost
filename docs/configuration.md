@@ -39,7 +39,10 @@ DEV allows at most four tags. The app normalizes tags by lowercasing them, remov
 | `devtoOrgId` | No | Numeric DEV organization ID. Leave blank for personal-account drafts. |
 | `forcedFirstTag` | No | Tag inserted before content tags, useful for brand or product tags. |
 | `publishDelayDays` | Yes | Number of days added to the Contentful publish date for DEV's front matter date. |
+| `sidebarPosition` | Yes | Zero-based sidebar insertion position for this app on the configured content type. Use `2` to place it below Contentful Preview when Status, another app, and Preview are above it. |
 | `appActionId` | Yes | Contentful App Action ID. Defaults to `createDevtoDraft`. |
+
+Contentful Preview is a built-in sidebar widget. In the Editor Interface API it appears as `sidebar-builtin/content-preview-widget`, so this app can be positioned relative to it by choosing the correct `sidebarPosition`.
 
 ## Date Behavior
 
@@ -136,6 +139,7 @@ For a content type named `article` with fields `headline`, `urlSlug`, `markdown`
   "devtoOrgId": "",
   "forcedFirstTag": "example",
   "publishDelayDays": 7,
+  "sidebarPosition": 2,
   "appActionId": "createDevtoDraft",
   "fieldMapping": {
     "titleField": "headline",
